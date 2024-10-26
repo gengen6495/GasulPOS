@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .actions button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .product-row {
+            background-color: #f9f9f9;
+        }
+        .hidden {
+            display: none;
+        }
+        .visible {
+            display: inline-block;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 0;
+        }
+        #paymentSection {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Simple POS System</h2>
+
+<!-- Product Selection -->
+<label for="product">Choose a product:</label>
+<select id="product">
+    <option value="" disabled selected>Select a product</option>
+    <option value="Apple">Apple - $1.00</option>
+    <option value="Banana">Banana - $0.50</option>
+    <option value="Orange">Orange - $0.75</option>
+</select>
+<button onclick="addProduct()">Add Product</button>
+
+<!-- POS Table -->
+<h3>Selected Products</h3>
+<table id="posTable">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<!-- Total Amount -->
+<h3>Total: $<span id="totalAmount">0.00</span></h3>
+
+<!-- Proceed to Payment Button -->
+<button id="proceedPaymentBtn" class="hidden" onclick="showPaymentSection()">Proceed to Payment</button>
+
+<!-- Payment Section -->
+<div id="paymentSection" class="hidden">
+    <h3>Payment</h3>
+    <label for="customerMoney">Enter money given by customer: $</label>
+    <input type="number" id="customerMoney" placeholder="Enter amount">
+    <button onclick="proceedToPayment()">Pay</button>
+
+    <!-- Change Amount -->
+    <h4 id="changeSection" class="hidden">Change: $<span id="changeAmount">0.00</span></h4>
+</div>
+
+<!-- Print Receipt Button -->
+<button id="printReceiptBtn" class="hidden" onclick="printReceipt()">Print Receipt</button>
+
+<script>
+    let totalCost = 0; // Variable to keep track of the total amount
+
+    // Function to add product to the POS table
+    function addProduct() {
+        const productSelect = document.getElementById("product");
+        const selectedProduct = productSelect.value;
+
+        // If no product is selected, show an alert
+        if (!selectedProduct) {
+            alert("Please select a product.");
+            return;
+        }
+
+        // Get the product name and price
+        let productName = "";
+        let productPrice = 0;
+        if (selectedProduct === "Apple") {
+            productName = "Apple";
+            productPrice = 1.00;
+        } else if (selectedProduct === "Banana") {
+            productName = "Banana";
+            productPrice = 0.50;
+        } else if (selectedProduct === "Orange") {
+            productName = "Orange";
+            productPrice = 0.75;
+        }
+
+        // Create a new row for the product
+        const tableBody = document.querySelector("#posTable tbody");
+        const row = document.createElement("tr");
+        row.classList.add("product-row");
+
+        row.innerHTML = `
+            <td>${productName}</td>
+            <td>$${productPrice.toFixed(2)}</td>
+            <td class="actions">
+                <button onclick="removeProduct(this, ${productPrice})">Cancel</button>
+            </td>
+        `;
+
+        // Add the new row to the table
+        tableBody.appendChild(row);
+
+        // Update total cost
+        totalCost += productPrice;
+        document.getElementById("totalAmount").innerText = totalCost.toFixed(2);
+
+        // Reset the product selection
+        productSelect.value = "";
+
+        // Show the Proceed to Payment button
+        document.getElementById("proceedPaymentBtn").classList.remove("hidden");
+    }
+
+    // Function to remove product from the POS table
+    function removeProduct(button, productPrice) {
+        const row = button.closest("tr");
+        row.remove();
+
+        // Update total cost
+        totalCost -= productPrice;
+        document.getElementById("totalAmount").innerText = totalCost.toFixed(2);
+
+        // Hide the payment button if no products are left
+        const tableBody = document.querySelector("#posTable tbody");
+        if (tableBody.children.length === 0) {
+            document.getElementById("proceedPaymentBtn").classList.add("hidden");
+            totalCost = 0;
+            document.getElementById("totalAmount").innerText = totalCost.toFixed(2);
+        }
+    }
+
+    // Function to show payment section
+    function showPaymentSection() {
+        document.getElementById("paymentSection").classList.remove("hidden");
+    }
+
+    // Function to proceed to payment
+    function proceedToPayment() {
+        const customerMoney = parseFloat(document.getElementById("customerMoney").value);
+
+        if (isNaN(customerMoney) || customerMoney < totalCost) {
+            alert("Insufficient amount! Please enter an amount greater than or equal to the total.");
+            return;
+        }
+
+        const change = customerMoney - totalCost;
+        document.getElementById("changeAmount").innerText = change.toFixed(2);
+
+        // Show the change section and print receipt button
+        document.getElementById("changeSection").classList.remove("hidden");
+        document.getElementById("printReceiptBtn").classList.add("visible");
+
+        // Disable further edits after payment
+        document.getElementById("customerMoney").disabled = true;
+        document.getElementById("proceedPaymentBtn").disabled = true;
+    }
+
+    // Function to print receipt
+    function printReceipt() {
+        const receiptContent = document.querySelector("#posTable").outerHTML;
+        const total = document.getElementById("totalAmount").innerText;
+        const change = document.getElementById("changeAmount").innerText;
+
+        const newWindow = window.open("", "", "width=600,height=400");
+        newWindow.document.write("<h2>Receipt</h2>");
+        newWindow.document.write(receiptContent);
+        newWindow.document.write(`<p><strong>Total: $${total}</strong></p>`);
+        newWindow.document.write(`<p><strong>Change: $${change}</strong></p>`);
+        newWindow.document.close();
+        newWindow.print();
+    }
+</script>
+
+</body>
+</html>

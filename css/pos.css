@@ -1,0 +1,291 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+}
+#logo { 
+    height: auto; 
+    margin-right: 10px; 
+    width: 8%;
+    float: left;
+}
+#header h1{
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: #C5DFF8;
+    display: flex;
+    justify-content: space-between;
+}
+.card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    border: 1px solid #343a40;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+.card-body-wrapper {
+    display: flex;
+    padding: 0;
+    height: auto;
+}
+.column-8 {
+    flex: 1;
+    max-width: 100%;
+    padding: 1rem;
+    background: #f8f9fa;
+}
+.column-4 {
+    flex: 1;
+    max-width: 100%;
+    padding: 1rem;
+    background-color: #e9ecef;
+    color: black;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 2.5rem;
+    padding: 0.3rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.item-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.item-list th, .item-list td {
+    border: 1px solid #dee2e6;
+    padding: 0.5rem;
+    text-align: left;
+}
+.item-list th {
+    background-color: #e9ecef;
+}
+.computaion-pane {
+    flex-grow: 1;
+}
+.subtotal-row,
+.discount%-row,
+.discount-row {
+    display: flex;
+    margin-bottom: 1rem;
+}
+.col-3 {
+    flex: 0 0 25%;
+    margin-top: 10px;
+}
+.col-9 {
+    flex: 0 0 75%;
+    text-align: left;
+    background-color: white;
+    padding: 10px;
+    margin: 20px;
+    color: black;
+}
+.grand-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+}
+.total-amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: white;
+    color: black;
+    padding: 20px; 
+    width: 80%;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    align-content: center;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 50px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px;
+}
+.modal-content label {
+    font-size: 1.2rem;
+}
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.modal-content input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.modal-content input[type="submit"]:hover {
+            background-color: #45a049;
+}
+.close{
+    color: #aaa;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+} 
+.close-receipt{
+    color: #aaa;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.close-receipt:hover,
+.close-receipt:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.quantity{
+    padding: 10px;
+}
+.clear-btn{
+    color: white;
+    background-color: #10516e;
+}
+.clear-btn:hover{
+    color: red;
+    background-color: white;
+}
+#transactionDetails {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+#transactionDetails th,
+#transactionDetails td {
+    border: 1px solid #dee2e6;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+#transactionDetails th {
+    background-color: #e9ecef;
+}
+#transactionDetails td {
+    padding: 10px;
+}
+.modal-content-receipt{
+     width: 60%;
+     align-content: center;
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 50px;
+    border: 1px solid #888;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.butt{
+    padding: 10px 21px;
+    background-color: #10516e;
+    margin-top: 20px;
+    color: white;
+    border: none;
+    align-content: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+.butt:hover{
+    background-color: #c54029;
+}
+@media print {
+@page {
+    size: auto;
+    margin: 0;
+}
+.close,
+.butt {
+    display: none;
+    }
+}
+@media (max-width: 768px) {
+    .card-body-wrapper {
+        flex-direction: column; 
+    }
+    .column-4 {
+        max-width: 100%; 
+        padding: 0.5rem;
+    }
+    .column-8 {
+         max-width: 100%;
+        padding: 0.5rem;
+    }
+    .form-control {
+        font-size: 1rem; 
+    }
+    .grand-total {
+        font-size: 1.2rem; 
+    }
+    .total-amount {
+        font-size: 1.2rem; 
+        padding: 10px; 
+    }
+    .btn {
+        width: 100%;
+        padding: 15px; 
+    }
+    .item-list th, .item-list td {
+        padding: 0.3rem; 
+    }
+}
+@media (max-width: 576px) {
+    .btn {
+        padding: 10px; 
+        font-size: 0.9rem; 
+    }
+    .total-amount {
+        font-size: 1rem; 
+}
