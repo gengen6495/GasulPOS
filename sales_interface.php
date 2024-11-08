@@ -2,8 +2,8 @@
     session_start();
     include 'config.php';
 
-    if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'cashier') {
-        header("Location: login.php");
+    if (!isset($_SESSION['email_address']) || $_SESSION['user_type'] !== 'cashier') {
+        header('Location: login.php');
         exit();
     }
 
@@ -220,7 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form_type']) && $_POST
                         </div>
                     </div>
                     <br><br>
-                    Cashier: <?php echo $_SESSION['username']; ?>
+                    Cashier: <?php echo $_SESSION['email_address']; ?>
                 </div>
             </div>
         </form>

@@ -1,170 +1,64 @@
 <?php
-session_start(); 
-    include 'config.php';
+session_start();
 
-    $error = "";
-    if (isset($_POST['login'])) {
-        $email = $_POST['email_address'];
-        $password = $_POST['password'];
+$host = 'localhost'; 
+$db = 'sop';
+$user = 'root';
+$pass = ''; 
 
-        $sql = "SELECT * FROM `user_data` WHERE `email_address`='$email'";
-        $result = mysqli_query($conn, $sql);
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
 
-        if ($result && mysqli_num_rows($result) === 1) {
-            $row = mysqli_fetch_assoc($result);
-            if ($row['password'] === $password) {
-                session_start();
-                $_SESSION['username'] = $row['username'];
-                $_SESSION['email_address'] = $row['email_address'];
-                $_SESSION['user_id'] = $row['user_id'];
-                header("Location: manager_dashboard.php");
-                exit();
-            } else {
-                $error = "Incorrect Password";
-            }
-        } else {
-            $error = "Incorrect Email";
-        }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email_address = $_POST['email_address'];
+    $password = $_POST['password'];
+
+    $stmt = $pdo->prepare("SELECT * FROM user_data WHERE email_address = :email_address");
+    $stmt->execute(['email_address' => $email_address]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['email_address'] = $user['email_address'];
+        $_SESSION['role'] = $user['user_type'];
+
+        if ($user['user_type'] === 'admin') {
+            header("Location: admin_panel/manager_dashboard.php");
+        } 
+        exit();
+    } else {
+        echo "<script>alert('Invalid email address or password.');</script>";
     }
- ?>
+}
+?>
+
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Admin Login</title>
-    <link rel="icon" type="image/x-icon" href="image/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" type="text/css" href="admin_panel/css/style_log_reg.css">
 </head>
-<style type="text/css">
-    body{
-        background: url('image/cover-orig.png') 80% no-repeat;
-        background-size: cover;
-        height: 100vh;
-
-    }
-    *{
-        box-sizing: border-box;
-    }
-
-    .btn {
-        background-color: #E86A33;
-        color: #f2f2f2;
-        padding: 1rem 3rem;
-        border-radius: 0.9rem;
-        margin-top: 1rem;
-        text-decoration: none;
-        border: none;
-    }
-    .btn:hover {
-        background-color: #57C5B6;
-        color: #333;
-    }
-    .wave{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        height: 100%;
-        z-index: -1;
-    }
-    .img{
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
-    .img img{
-        width: 500px;
-    }
-    .formlogin{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        text-align: center;
-    }
-    .formlogin img{
-        height: 100px;
-    }
-    .formlogin h3{
-        margin: 15px 0;
-        color: #333;
-        text-transform: uppercase;
-        font-size: 2.9rem;
-        padding: 10px;
-    }
-    .formlogin h1{
-        margin: 15px 0;
-        color: #333;
-        text-transform: uppercase;
-        font-size: 2.9rem;
-        padding: 10px;
-    }
-    .user_container{
-        width: 90vw;
-        height: 90vh;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap :7rem;
-        padding: 0 2rem;
-    }
-    form {
-        width: 500px;
-        border: 1px solid white;
-        margin-left: 20%;
-        display: flex;
-        flex-direction: column;
-        outline: none;
-        background: transparent;
-        align-items: center;
-        padding: 30px;
-        border-radius: 40px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(5px);
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-    select, input[type=text], input[type=password]{
-        padding: 30px;
-        border: none;
-        outline: none;
-        max-width: 400px;
-        position: relative;
-        width: 100%;
-        height: 10px;
-        margin: 10px 0;
-        border-radius: 1.5rem;
-        background-color: #9EDDFF;
-    }
-    
-
-</style>
-
 <body>
-    <!--  <div class="logo-head">
-        <a href="manager_dashboard.php"><img src="https://img.icons8.com/?size=512&id=80689&format=png" alt="" height="50px"></a>
-    </div> -->
-   <div class="user_container">
-        <!-- <div class="img">
-            <img src="image/front1.jpg">
-        </div> -->
-        <div class="formlogin">
-            <form id="adminLoginForm" method="POST">
+    <div class="user_container">
+         <div class="formlogin">
+            <form action="login.php" method="POST">
                 <img src="image/profile.png">
-                <h1>Login</h1>
-                <label for="email_address">Email</label>
-                <input type="text" id="email_address" placeholder="Enter Email Address" name="email_address" required>
+                <h2>Login Form</h2>
 
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter Password" name="password" required>
-                <button class="btn" name="login">Login</button>
+                <label for="email_address">Email Address:</label>
+                <input type="email" id="email_address" name="email_address" placeholder="Enter Email" required><br><br>
 
-                <?php if ($error): ?>
-                    <p style="color: red;"><?php echo $error; ?></p>
-                <?php endif; ?>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required><br><br>
 
+                <input type="submit" value="Login">
             </form>
         </div>
-
     </div>
 </body>
-
 </html>
-
-

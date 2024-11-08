@@ -647,7 +647,7 @@ if(isset($message)){
     </div>
    <div class="sidebar"><center>
       <div class="logo-head">
-                    <a href="user_dashboard.php"><img src="image/Profile.png" alt=""></a><p style="margin-left: 10px; color: black; margin-bottom: 50px;"><?php echo $_SESSION['username']; ?></p>
+                    <a href="user_dashboard.php"><img src="image/Profile.png" alt=""></a><p style="margin-left: 10px; color: black; margin-bottom: 50px;"><?php echo $_SESSION['email_address']; ?></p>
      </div></center>
       <li><a href="manager_dashboard.php"><img src="image/dashboard.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Dashboard</span></a></li>
@@ -667,7 +667,7 @@ if(isset($message)){
                     </div></span></li> 
                 <li><a href="sales.php"><img src="image/sale.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Sales</span></a></li>
-                 <li><a href="#sales"><img src="image/report.png" style="width: 30px; display: inline-block; vertical-align: middle;">
+                 <li><a href="report.php"><img src="image/report.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Reports</span></a></li>
                 <li><a href="#sales"><img src="image/user-management.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">User Management</span></a></li><br><br>
