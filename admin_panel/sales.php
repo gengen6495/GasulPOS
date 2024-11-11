@@ -1,5 +1,5 @@
 <?php 
-	session_start();
+  session_start();
     include 'config.php';
  ?>
 
@@ -10,11 +10,11 @@
     <link rel="icon" type="image/x-icon" href="image/logo1.png">
 </head>
     <style>
-    	body {
-		    margin: 0;
-		    padding: 0;
-		    background: linear-gradient(90deg, hsla(9, 58%, 47%, 1) 0%, hsla(215, 76%, 41%, 1) 100%);
-		}
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(90deg, hsla(9, 58%, 47%, 1) 0%, hsla(215, 76%, 41%, 1) 100%);
+    }
         *{
            font-family: 'Poppins', sans-serif;
            box-sizing: border-box;
@@ -23,12 +23,12 @@
            text-decoration: none;
            text-transform: capitalize;
         }
-		header {
-		    background-color: #19A7CE;
-		    color: black;
-		    padding: 10px;
-		}
-		#logo { 
+    header {
+        background-color: #19A7CE;
+        color: black;
+        padding: 10px;
+    }
+    #logo { 
             height: auto; 
             margin-right: 10px; 
             width: 10%;
@@ -42,91 +42,91 @@
             padding: 30px;
             
         }
-		nav {
-		    display: flex;
-		    flex-direction: row;
-		    justify-content: space-between;
-		    align-items: center;
-		    padding: 10px;
-		}
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
 
-		nav ul {
-		    display: flex;
-		    flex-direction: row;
-		    list-style: none;
-		    margin: 0;
-		    padding: 0;
-		}
+    nav ul {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
 
-		nav ul li {
-		    margin-right: 20px;
-		}
+    nav ul li {
+        margin-right: 20px;
+    }
 
-		nav ul li:last-child {
-		    margin-right: 0;
-		}
+    nav ul li:last-child {
+        margin-right: 0;
+    }
 
-		nav a {
-		    color: black;
-		    text-decoration: none;
-		}
+    nav a {
+        color: black;
+        text-decoration: none;
+    }
 
-		nav a:hover {
-		    color: orangered;
-		}
+    nav a:hover {
+        color: orangered;
+    }
 
-		section {
-			margin-top: 10px;
-			margin-right: 20px;
-		    background-color: #fff;
-		    padding: 20px;
-		    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-		    width: calc(100% - 400px);
-		    float: right;
-		}
+    section {
+      margin-top: 10px;
+      margin-right: 20px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        width: calc(100% - 400px);
+        float: right;
+    }
 
-		section h2 {
-		    font-size: 24px;
-		    margin-bottom: 20px;
+    section h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
 
-		}
-		table {
-		    width: 100%;
-		    border-collapse: collapse;
-		}
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-		table th, table td {
-		    padding: 10px;
-		    border: 1px solid #ddd;
-		}
+    table th, table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
 
-		table th {
-		    background-color: #e9ecef;
-		    color: black;
+    table th {
+        background-color: #e9ecef;
+        color: black;
             font-weight: bold;
-		}
+    }
 
-		table tr:nth-child(even) {
-		    background-color: #f5f5f5;
-		}
+    table tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
 
-		button {
-		    padding: 10px 20px;
-		    background-color: orange;
-		    color: #fff;
-		    border: none;
-		    border-radius: 5px;
-		    cursor: pointer;
-		}
-		button:hover {
-		    background-color: #B5F1CC;
-		}
+    button {
+        padding: 10px 20px;
+        background-color: orange;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #B5F1CC;
+    }
 
-		form label {
-		    display: block;
-		    margin-bottom: 5px;
-		    font-size: 16px;
-		}
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 16px;
+    }
         .dropbtn {
       color: black;
       padding: 16px;
@@ -165,9 +165,9 @@
       display: block;
     }
         .logo-head img{
-			width: 30%;
-			margin: 1rem;
-		}
+      width: 30%;
+      margin: 1rem;
+    }
         .sidebar {
             height: 100%;
             width: 300px;
@@ -179,8 +179,8 @@
             padding-top: 20px;
         }
         .sidebar li {
-		    list-style-type: none; 
-		}
+        list-style-type: none; 
+    }
         .sidebar a {
             padding: 6px 8px 6px 16px;
             text-decoration: none;
@@ -200,8 +200,8 @@
             padding: 20px;
         }
         .active{
-          	background-color: #C5DFF8;
-          	margin-right: 20px;
+            background-color: #C5DFF8;
+            margin-right: 20px;
             margin-left: 20px;
             border-radius: 20px;
         }
@@ -213,10 +213,10 @@
         Sales</h1>
     </div>
    <div class="sidebar"><center>
-    	<div class="logo-head">
-                    <a href="user_dashboard.php"><img src="image/Profile.png" alt=""></a><p style="margin-left: 15px; color: black; margin-bottom: 50px;"><?php echo $_SESSION['username']; ?></p>
+      <div class="logo-head">
+                    <a href="user_dashboard.php"><img src="image/Profile.png" alt=""></a><p style="margin-left: 15px; color: black; margin-bottom: 50px;"><?php echo $_SESSION['email_address']; ?></p>
      </div></center>
-     	          <li><a href="manager_dashboard.php">
+                <li><a href="manager_dashboard.php">
                   <img src="image/dashboard.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Dashboard</span>
                 </a></li>
@@ -234,7 +234,7 @@
                     </div></span></li>
                 <li><a href="sales.php" class="active"><img src="image/sale.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Sales</span></a></li>
-                <li><a href="#reports"><img src="image/report.png" style="width: 30px; display: inline-block; vertical-align: middle;">
+                <li><a href="report.php"><img src="image/report.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Reports</span></a></li>
                 <li><a href="#sales"><img src="image/user-management.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">User Management</span></a></li><br><br>   
@@ -242,7 +242,7 @@
                     <img src="image/logout.png" style="width: 30px; display: inline-block; vertical-align: middle;"><span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Logout</span></a></li>
     </div>
 
-    	<section>
+      <section>
         <h2>Sales</h2>
 <!-- <?php
 $sql = "SELECT * FROM payment_data";

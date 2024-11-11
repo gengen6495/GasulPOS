@@ -1,11 +1,12 @@
 <?php 
-	session_start();
+  session_start();
   include 'config.php';
 
-  // if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
-  //   header("Location: adminLogin.php");
-  //   exit();
-  
+  if (!isset($_SESSION['email_address']) || $_SESSION['user_type'] !== 'admin') {
+      header('Location: ../login.php');
+      exit();
+  }
+
   $select_products = mysqli_query($conn, "SELECT COUNT(*) AS total_products FROM `product_data`");
   $total_products_result = mysqli_fetch_assoc($select_products);
   $total_products = $total_products_result['total_products'];
@@ -31,12 +32,12 @@
     <link rel="icon" type="image/x-icon" href="image/logo1.png">
 </head>
     <style>
-    	body {
-		    font-family: Arial, sans-serif;
-		    margin: 0;
-		    padding: 0;
-		    background: linear-gradient(90deg, hsla(9, 58%, 47%, 1) 0%, hsla(215, 76%, 41%, 1) 100%);
-		}
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(90deg, hsla(9, 58%, 47%, 1) 0%, hsla(215, 76%, 41%, 1) 100%);
+    }
     *{
        font-family: 'Poppins', sans-serif;
        box-sizing: border-box;
@@ -44,12 +45,12 @@
        text-decoration: none;
        text-transform: capitalize;
     }
-		header {
-		    background-color: #19A7CE;
-		    color: black;
-		    padding: 10px;
-		}
-		#logo { 
+    header {
+        background-color: #19A7CE;
+        color: black;
+        padding: 10px;
+    }
+    #logo { 
             height: auto; 
             margin-right: 10px; 
             width: 10%;
@@ -63,131 +64,131 @@
             padding: 30px;
             
         }
-		nav {
-		    display: flex;
-		    flex-direction: row;
-		    justify-content: space-between;
-		    align-items: center;
-		    padding: 10px;
-		}
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
 
-		nav ul {
-		    display: flex;
-		    flex-direction: row;
-		    list-style: none;
-		    margin: 0;
-		    padding: 0;
-		}
+    nav ul {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
 
-		nav ul li {
-		    margin-right: 20px;
-		}
+    nav ul li {
+        margin-right: 20px;
+    }
 
-		nav ul li:last-child {
-		    margin-right: 0;
-		}
+    nav ul li:last-child {
+        margin-right: 0;
+    }
 
-		nav a {
-		    color: black;
-		    text-decoration: none;
-		}
+    nav a {
+        color: black;
+        text-decoration: none;
+    }
 
-		nav a:hover {
-		    color: orangered;
-		}
+    nav a:hover {
+        color: orangered;
+    }
 
-		section {
-			margin-top: 10px;
-			margin-right: 20px;
-		  padding: 20px;
-		  width: calc(100% - 400px);
-		  float: right;
-		}
+    section {
+      margin-top: 10px;
+      margin-right: 20px;
+      padding: 20px;
+      width: calc(100% - 400px);
+      float: right;
+    }
 
-		section h2 {
-		    font-size: 24px;
-		    margin-bottom: 20px;
+    section h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
 
-		}
-		
-		.header {
-  		  position: relative;
-  		  background-position: center;
-  		  background-size: cover;
-  		  height: 400px;
-		}
+    }
+    
+    .header {
+        position: relative;
+        background-position: center;
+        background-size: cover;
+        height: 400px;
+    }
 
-		.mask {
-  		  position: absolute;
-  		  top: 0;
-  		  left: 0;
-  		  width: 100%;
-  		  height: 100%;
+    .mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         border-radius: 10px;
         display: flex;
-		}
+    }
 
-		.container-fluid {
-		    padding: 20px;
-		}
+    .container-fluid {
+        padding: 20px;
+    }
 
-		.card {
-  		  margin-bottom: 20px;
-  		  border: 1px solid #e4e4e4;
-  		  border-radius: 15px;
-  		  background-color: #fff;
-		}
+    .card {
+        margin-bottom: 20px;
+        border: 1px solid #e4e4e4;
+        border-radius: 15px;
+        background-color: #fff;
+    }
 
-		.card-body {
-		    padding: 20px;
-		}
+    .card-body {
+        padding: 20px;
+    }
 
-		.card-title {
-  		  color: #999;
-  		  font-size: 14px;
-  		  text-transform: uppercase;
-  		  margin-bottom: 5px;
-		}
+    .card-title {
+        color: #999;
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
 
-		.h2 {
-  		  font-size: 36px;
-  		  font-weight: bold;
-		}
+    .h2 {
+        font-size: 36px;
+        font-weight: bold;
+    }
 
-		.img {
-  		  display: flex;
-  		  justify-content: center;
-  		  align-items: center;
-  		  height: 60px;
-  		  width: 60px;
-  		  border-radius: 50%;
-  		  margin-right: 20px;
-  		  color: red;
-		}
+    .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        margin-right: 20px;
+        color: red;
+    }
 
-		.text-danger {
-		    color: #dc3545;
-		}
+    .text-danger {
+        color: #dc3545;
+    }
 
-		.text-primary {
-		    color: #007bff;
-		}
+    .text-primary {
+        color: #007bff;
+    }
 
-		.text-warning {
-		    color: #ffc107;
-		}
+    .text-warning {
+        color: #ffc107;
+    }
 
-		.text-success {
-		    color: #28a745;
-		}
+    .text-success {
+        color: #28a745;
+    }
 
-		.text-white {
-		    color: #fff;
-		}
+    .text-white {
+        color: #fff;
+    }
 
-		.rounded-circle {
-		    border-radius: 50%;
-		}
+    .rounded-circle {
+        border-radius: 50%;
+    }
 
     .logo-head img{
        width: 30%;
@@ -216,15 +217,15 @@
             margin-right: 20px;
         }
         .sidebar li {
-    		    list-style-type: none; 
-    		    padding: 0;
-    		}
+            list-style-type: none; 
+            padding: 0;
+        }
         .sidebar li:hover {
             opacity: 0.7;
         }
         .sidebar h3{
-        	margin-left: 20px;
-        	color: red;
+          margin-left: 20px;
+          color: red;
         }
         .main {
             margin-left: 200px;
@@ -280,12 +281,14 @@
     alert('Welcome, ' + username);
 </script> -->
 <div id="header">
-        <h1><img src="image/logo.png" alt="Your Logo" id="logo"><?php echo $_SESSION['username']; ?>
+
+        <h1><img src="image/logo.png" alt="Your Logo" id="logo"><?php echo $_SESSION['email_address']; ?>
         </h1>
 </div>
-   <div class="sidebar"><center>
-    	<div class="logo-head">
-                    <a href="user_dashboard.php"><img src="image/Profile.png" alt=""></a><p style="margin-left: 10px; color: black; margin-bottom: 50px;"><?php echo $_SESSION['username']; ?></p>
+   <aside class="sidebar">
+     <center>
+      <div class="logo-head">
+                    <a href="user_dashboard.php"><img src="image/Profile.png" alt=""></a><p style="margin-left: 10px; color: black; margin-bottom: 50px;"><?php echo $_SESSION['email_address']; ?></p>
      </div></center>
                 <li><a href="manager_dashboard.php" class="active">
                   <img src="image/dashboard.png" style="width: 30px; display: inline-block; vertical-align: middle;">
@@ -305,13 +308,13 @@
                     </div></span></li>
                 <li><a href="sales.php"><img src="image/sale.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Sales</span></a></li>
-                <li><a href="#sales"><img src="image/report.png" style="width: 30px; display: inline-block; vertical-align: middle;">
+                <li><a href="report.php"><img src="image/report.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Reports</span></a></li>
                 <li><a href="user_management.php"><img src="image/user-management.png" style="width: 30px; display: inline-block; vertical-align: middle;">
                   <span style="display: inline-block; vertical-align: middle; margin-left: 10px;">User Management</span></a></li><br><br>   
                 <li><a href="logout.php">
                     <img src="image/logout.png" style="width: 30px; display: inline-block; vertical-align: middle;"><span style="display: inline-block; vertical-align: middle; margin-left: 10px;">Logout</span></a></li>
-  </div>              
+   </aside>              
 <section>
          <div style="background-color: #e9ecef;" class="header  pb-8 pt-5 pt-md-8">
       <span class="mask bg-gradient-dark opacity-8"></span>
@@ -335,7 +338,7 @@
                 </div>
               </div>
             </div>
-		  
+      
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
@@ -371,7 +374,7 @@
                 </div>
               </div>
             </div>
-		  
+      
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
